@@ -7,7 +7,7 @@ output: html_document
 
 
 ```{r}
-# install.packages("plotly") ## IF NOT ALREADY INSTALLED
+install.packages("plotly") ## IF NOT ALREADY INSTALLED
 library(tidyverse)
 library(plotly)
 library(scales)
@@ -38,33 +38,43 @@ pres <- data.frame(name, start, end, party, stringsAsFactors=F)
 
 ```{r}
 # Define range of unemployment and date variables
-
-
+yrange <- range(unemp$unemp, na.rm=TRUE)
+xrange <- range(unemp$date, na.rm=TRUE)
 
 # Creating a line-plot with unemployment and date
-
-
+line_plot <- ggplot(unemp) + geom_line(aes(x = date, y = unemp)) 
+line_plot <- line_plot + scale_y_continuous(labels = scales::percent)
 
 # Adding the rectangle geometry (set axes limits so that background covers entire plot)
-
-
+my_plot <- line_plot +
+  geom_rect(data=pres, 
+            aes(xmin=start, xmax=end, fill = party),
+            ymin = yrange[1]-0.05, ymax = yrange[2]+0.05) +
+  scale_fill_manual(values = alpha(c("blue", "red"), 0.2)) +
+  scale_x_date(limits=xrange, expand=c(0,0))
 
 # Adding president names
-
-
+my_plot <- my_plot +
+  geom_text(data=pres,
+            aes(x=start, y=yrange[2]-0.01, label=name),
+            size=3, hjust=0.25, vjust=1.25, angle=90)
 
 # Adding lines to separate presidencies
-
-
+my_plot <- my_plot +
+  geom_vline(data=pres, aes(xintercept=as.numeric(start)), 
+             color = "grey50", linetype=5, linewidth = 0.5)
 
 # Finally, moving legend and removing x axis title
 
-
-
+my_plot <- my_plot +
+    theme(axis.title.x = element_blank(),
+        legend.position = "bottom",
+        legend.margin = unit(-1, "cm") ) +
+  scale_fill_manual("Party of President", 
+                    values=alpha(c("blue", "red"), 0.2),
+                    labels= c("Democratic", "Republican"))
+  
 # Adjusting y axis
-
-
-
 ```
 
 
@@ -93,7 +103,6 @@ df <- df %>%
   filter(!post_type %in% c("music", "note"))
 nrow(df)
 ```
-
 Creating the plot data:
 
 ```{r}
