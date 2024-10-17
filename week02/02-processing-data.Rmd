@@ -22,13 +22,7 @@ library(tidyverse)
 
 ### Data
 
-We will analyse some macroeconomic time series from the US and Europe during the 
-first wave of the COVID-19 crisis. The data has been downloaded in early October 
-2020 from FRED which is hosted by the Federal Reserve Bank of St. Louis. It 
-contains data for 2019 (as a reference year) and 2020 up to varying points, 
-because at the time of the download different series had been published up to 
-different months. Full series can be found at <https://fred.stlouisfed.org/> 
-under the following names:
+We will analyse some macroeconomic time series from the US and Europe during the first wave of the COVID-19 crisis. The data has been downloaded in early October 2020 from FRED which is hosted by the Federal Reserve Bank of St. Louis. It contains data for 2019 (as a reference year) and 2020 up to varying points, because at the time of the download different series had been published up to different months. Full series can be found at <https://fred.stlouisfed.org/> under the following names:
 
 __Industrial production__
 
@@ -49,8 +43,7 @@ __Unemployment rate__
 - Italy: LRHUTTTTITM156S
 
 If you download the data again for newer time periods, note that past 
-macroeconomic data are continuously revised. Thus, also for 2019 and 2020 the 
-values might be slightly different now.
+macroeconomic data are continuously revised. Thus, also for 2019 and 2020 the values might be slightly different now.
 
 ### Loading data
 
@@ -62,16 +55,18 @@ loaded via the `read.csv` function, this creates a data frame object:
 ip_df <- read.csv("ip.csv")
 
 # Cleaning column names
-colnames(ip_df) <- str_replace(colnames(ip_df), "X", "")
+colnames(ip_df) <- str_replace(colnames(ip_df), "X", "") #we are removing the X in front of the column's names
 head(ip_df)
-```
 
+```
+This data frame is untidy, because each row is a country but each column is giving us the industrial production in a particular date. Each column is industrial production, so this is not tidy. It is currently wide and we want it long. We want 3 columns: country, date, industrial production.
 
 ```{r}
 # Industrial production and unemployment data in format two
 ip_and_unemployment_df <- read.csv("ip_and_unemployment.csv")
 head(ip_and_unemployment_df)
 ```
+This is also untidy because we have for the same country 6 rows (or more), plus for the same ip or unemployment also several rows... we have it in long format but we want it in wide format. 
 
 ### Tibbles
 
@@ -160,6 +155,7 @@ new pair of variables:
 ```{r}
 ip_long <- pivot_longer(ip, cols = colnames(ip)[2:length(colnames(ip))],
                         names_to = "date", values_to = "ip")
+#also can be written as: ip_long <- ip %>% pivot_longer(cols = colnames(ip)[2:length(colnames(ip))], names_to = "date", values_to = "ip")
 ip_long
 ```
 

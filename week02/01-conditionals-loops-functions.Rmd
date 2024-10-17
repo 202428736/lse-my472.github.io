@@ -5,8 +5,7 @@ date: "October 2024"
 output: html_document
 ---
 
-In this file, we will continue to review a few key concepts which you have seen 
-in the preparatory course.
+In this file, we will continue to review a few key concepts which you have seen in the preparatory course.
 
 **Attribution statement:** _The following teaching materials have been 
 iteratively developed by current and former instructors, including: Ken Benoit, 
@@ -32,10 +31,7 @@ is.na(NA) # is NA
 ```
 
 Using these with "if" and "else" statements allows to run blocks of code 
-depending on whether a logical condition is met or not, i.e. evaluates to true 
-or false. In this course we might for example use conditionals while scraping to 
-run different code depending on which site is currently accessed. The following 
-simple example illustrates an if statement:
+depending on whether a logical condition is met or not, i.e. evaluates to true or false. In this course we might for example use conditionals while scraping to run different code depending on which site is currently accessed. The following simple example illustrates an if statement:
 
 ```{r}
 x <- 2
@@ -54,8 +50,7 @@ if (x > 4) {
   }
 ```
 
-There might also be an alternative block of code we would like to run in case 
-the condition is not met. This can be achieved with an if-else structure:
+There might also be an alternative block of code we would like to run in case the condition is not met. This can be achieved with an if-else structure:
 
 ```{r}
 x <- 3
@@ -85,10 +80,7 @@ if (x < y) {
 
 ### Loops
 
-We use loops whenever we need to run the same function (or chunk of code) across 
-different units. For example, in this course we may use a loop when we have 
-multiple Twitter accounts and we want to run sentiment analysis for tweets 
-posted by each of them, or when scraping data from multiple elements of a webpage.
+We use loops whenever we need to run the same function (or chunk of code) across different units. For example, in this course we may use a loop when we have multiple Twitter accounts and we want to run sentiment analysis for tweets posted by each of them, or when scraping data from multiple elements of a webpage.
 
 "For" loops are probably the most common type of loop and are easily implemented in R:
 
@@ -106,8 +98,7 @@ for (i in VECTOR) {
 }
 ```
 
-In each iteration, i takes a different value of the VECTOR; "i" can be anything, 
-we can e.g. also just name it number:
+In each iteration, i takes a different value of the VECTOR; "i" can be anything, we can e.g. also just name it number:
 
 ```{r}
 for (number in 1:10) {
@@ -115,8 +106,7 @@ for (number in 1:10) {
 }
 ```
 
-We can also iterate over different vectors than integers sequences with for 
-loops:
+We can also iterate over different vectors than integers sequences with for loops:
 
 ```{r}
 vector_of_texts <- c("hello", "world", "in", "a", "for", "loop")
@@ -136,15 +126,10 @@ while (x < 11) {
 }
 ```
 
-This while loop mimics the for loop above. More generally, while loops are more 
-flexible. For example, you might run a while loop until a certain user input is 
-given and sets a condition to false. One thing to be careful about with while 
-loops is not to create conditions which are always true. This leads to infinite 
-loops. For example "while (2 < 4) {print("hello word")}" would run forever.
+This while loop mimics the for loop above. More generally, while loops are more flexible. For example, you might run a while loop until a certain user input is given and sets a condition to false. One thing to be careful about with while loops is not to create conditions which are always true. This leads to infinite loops. For example "while (2 < 4) {print("hello word")}" would run forever.
 
 A nice feature of loops is that we can use values from the  previous iteration. 
-For instance, we can get the first 40 terms in the Fibonacci sequence using a 
-for loop.
+For instance, we can get the first 40 terms in the Fibonacci sequence using a for loop.
 
 ```{r}
 fib <- c(0, 1, rep(NA, 38)) # initialize fib sequence with a vector (0, 1, NA, NA, NA, NA, ...)

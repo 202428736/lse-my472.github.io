@@ -24,7 +24,7 @@ Note that `read_csv()` will try to anticipate each column's type: reading seemin
 
 ```{r}
 # Import directly as a tibble using tidyverse
-df <- read_csv("data/fb-congress-data.csv") # this is a relative file path
+df <- read_csv("data/fb-congress-data.csv") # this is a relative file path (this is already saved as a tibble)
 # df <- read_csv("/Users/r.hubert/Local/week03/data/fb-congress-data.csv") # this is an absolute file path
 
 # Quickly look at the data (always good practice!)
@@ -33,7 +33,7 @@ head(df) # Could also run View(df)
 # Dropping some very uncommon post types and tidying the gender and type labels
 print(nrow(df)) # How many rows did we start with?
 df <- df %>%
-  filter(!post_type %in% c("music", "note")) %>% 
+  filter(!post_type %in% c("music", "note")) %>% #filter out the value of post_type being one of these two values. 
   mutate(gender = if_else(gender == "M", "Man", "Woman"), 
          type = if_else(type == "rep","House","Senate"))
 print(nrow(df))  # How many rows did we end with?
@@ -83,13 +83,13 @@ As part of the grammar of graphics, however, we can define the *scales* we use t
 
 ```{r}
 likes_hist + 
-  scale_x_log10()
+  scale_x_log10() #you can add 1 also to avoid losing the ones with 0 as a value of likes
 ```
 
 **Note**: You should always read and try to deal with non-fatal warnings! It is not usually good practice to leave errors and warnings unresolved in your scripts. Here, `ggplot` is warning us that:
 
 1. it is using its default binning rule (create 30 bins); and 
-2. the log transformation caused some values to be dropped (why?)
+2. the log transformation caused some values to be dropped  (yes the log 0)
 
 In spite of the warnings, this graph is better than the previous. From a presentation perspective, we should really tidy up the axes and theme. Let's do that, and also make a couple modifications to get rid of the two warnings. 
 
